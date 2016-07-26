@@ -45,7 +45,6 @@ function move(e) {
 }
 function end(e) {
     if (this.flag) {
-        this.flag=false;
         oLis[this.prevIndex].style.webkitTransform = "translate(0,0)";
         oLis[this.prevIndex].style.webkitTransition = "0.5s";
         oLis[this.prevIndex].addEventListener("webkitTransitionEnd", function () {
