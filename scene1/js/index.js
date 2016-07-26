@@ -3,7 +3,7 @@
  */
 var winW = document.documentElement.clientWidth;
 var winH = document.documentElement.clientHeight;
-var desW = 640, desH = 960;
+var desW = 640;
 var main = document.querySelector(".main");
 var oLis = document.querySelectorAll(".slider>li");
 main.style.webkitTransform = "scale(" + winW / desW + ")";
