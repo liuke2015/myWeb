@@ -3,10 +3,16 @@
  */
 var winW = document.documentElement.clientWidth;
 var winH = document.documentElement.clientHeight;
-var desW = 640;
+var desW = 640, desH = 960;
 var main = document.querySelector(".main");
 var oLis = document.querySelectorAll(".slider>li");
-main.style.webkitTransform = "scale(" + winW / desW + ")";
+//根据长宽比大小，确定以宽度比或者以高度比缩放
+if ((winW / desW) > (winH / desH)) {
+    main.style.webkitTransform = "scale(" + winW / desW + ")";
+}else{
+    main.style.webkitTransform = "scale(" + winH / desH + ")";
+}
+
 [].forEach.call(oLis, function (cur, index) {
     cur.index = index;
     cur.addEventListener("touchstart", start, false);
@@ -20,7 +26,7 @@ function move(e) {
     e.preventDefault();
     this.flag = true;
     var cur = this.index;
-    var step=1/2;
+    var step = 1 / 2;
     var movePos = e.changedTouches[0].pageY;
     var changePos = movePos - this.start;
     [].forEach.call(oLis, function (item, index) {
@@ -41,10 +47,11 @@ function move(e) {
     oLis[this.prevIndex].className = "zIndex";
     oLis[this.prevIndex].style.display = "block";
     oLis[this.prevIndex].style.webkitTransform = "translate(0," + pos + "px)";
-    this.style.webkitTransform = "translate(0," + changePos + "px) scale(" + (1 - Math.abs(changePos) / winH*step) + ")";
+    this.style.webkitTransform = "translate(0," + changePos + "px) scale(" + (1 - Math.abs(changePos) / winH * step) + ")";
 }
 function end(e) {
     if (this.flag) {
+        this.flag = false;
         oLis[this.prevIndex].style.webkitTransform = "translate(0,0)";
         oLis[this.prevIndex].style.webkitTransition = "0.5s";
         oLis[this.prevIndex].addEventListener("webkitTransitionEnd", function () {
